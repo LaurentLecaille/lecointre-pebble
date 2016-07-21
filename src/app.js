@@ -1,7 +1,7 @@
 var UI = require('ui');
 var ajax = require('ajax');
 
-// Create a Card with title and subtitle
+// Create a Card with title and sub.replace(",", "\n -");title
 var card = new UI.Card({
   title:'Lecointre',
   subtitle:'Fetching...'
@@ -22,8 +22,20 @@ ajax(
   function(data) {
     // Success!
     card.subtitle('');
+    console.log(typeof(data[0].sub));
     card.scrollable(true);
-    card.body(data[0].name + '\n' +data[0].sub + '\n\n' + data[1].name + '\n' + data[1].sub+ '\n\n' + data[2].name + '\n' + data[2].sub + '\n\n' + data[3].name + '\n' + data[3].sub+ '\n\n' + data[4].name + '\n' + data[4].sub + + '\n\n' + data[5].name + '\n' + data[5].sub);
+    var body = '';
+    var name = '';
+    data.map(function(info) {
+      if(body.length > 0){
+        body = body + '\n\n' + info.name;
+      } else {
+        body = info.name;
+      }
+      var meal = String(info.sub).split(',');
+      body = body + '\n' + meal ;
+    });
+    card.body(body);
   },
   function(error) {
     // Failure!
