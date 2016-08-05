@@ -38,7 +38,5 @@ ajax(
     card.body(body);
   },
   function(error) {
-    // Failure!
-    console.log('Failed fetching weather data: ' + error);
   }
 );
